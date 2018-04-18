@@ -1,7 +1,5 @@
 package edu.ap.spring.view;
 
-import java.util.Random;
-
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -23,22 +21,17 @@ public class AOPHandler {
 	 public void checkBeforeSaveUser(JoinPoint joinPoint) throws Exception {
 		 Question newQuestion = (Question)joinPoint.getArgs()[0];
 		 
-		 while (repository.findByAnswer(newQuestion.getAnswer()) != null) {
-				 //System.out.println("Dit antwoord is gegeven!");
-				 EightBall eightBall = new EightBall();
-				 String[] antwoorden= eightBall.getAnswers();
-				 int rnd = new Random().nextInt(antwoorden.length);
-				 String antwoord = antwoorden[rnd];
-				 newQuestion = new Question(newQuestion.getQuestion(), antwoord);
-				 repository.save(newQuestion);
-			}
-		 
-		 
 		 if (repository.findByQuestion(newQuestion.getQuestion()) != null) {
 			 Question foundQuestion = repository.findByQuestion(newQuestion.getQuestion());
 			 System.out.println(foundQuestion.toString());
 			 throw new Exception();
 		}
+		 
+		 while (repository.findByAnswer(newQuestion.getAnswer()) != null) {
+			 EightBall eightBall = new EightBall();
+			 newQuestion = new Question(newQuestion.getQuestion(), eightBall.getRandomAnswer(newQuestion.getQuestion()));
+			 repository.save(newQuestion);
+			}
 		 
 		 
 	 }

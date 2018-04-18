@@ -1,8 +1,6 @@
 package edu.ap.spring.view;
 
 import java.awt.event.ActionEvent;
-import java.util.Random;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,18 +27,11 @@ public class EventHandler {
     public void whenButtonClicked(ActionEvent actionEvent) {
     	try {
     		EightBall eightBall = new EightBall();
-    		String[] antwoorden= eightBall.getAnswers();
-    		int rnd = new Random().nextInt(antwoorden.length);
-    		String antwoord = antwoorden[rnd];
-        
-    		String vraag = ui.getQuestion().getText();        
-       
-    		Question question = new Question(vraag, antwoord);
+    		String vraag = ui.getQuestion().getText();       
+    		Question question = new Question(vraag, eightBall.getRandomAnswer(vraag));
     		repository.save(question);
 
     		System.out.println(question.toString());
-    		System.out.println("Find all : ") ;
-        	repository.findAll().forEach(System.out::println);
-    	} catch (Exception e) {	}
+    	} catch (Exception e) { }
     }
 }

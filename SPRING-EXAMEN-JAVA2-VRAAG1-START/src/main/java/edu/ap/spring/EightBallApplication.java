@@ -26,6 +26,7 @@ public class EightBallApplication {
 	CommandLineRunner runOnStartup() {
 		return (args) -> {
 			ui.setupUI();
+			
 		};
 	}
 }

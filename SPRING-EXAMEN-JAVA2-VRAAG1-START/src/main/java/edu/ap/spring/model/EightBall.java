@@ -1,4 +1,6 @@
 package edu.ap.spring.model;
+import java.util.Random;
+
 import org.springframework.stereotype.Component;
 
 @Component
@@ -14,9 +16,8 @@ public class EightBall {
 								"Outlook not so good"};
 	
 	public String getRandomAnswer(String question) {
-		String answer = "";
-
-		return answer;
+		int rnd = new Random().nextInt(answers.length);
+		return answers[rnd];
 	}
 
 	public String[] getAnswers() {
