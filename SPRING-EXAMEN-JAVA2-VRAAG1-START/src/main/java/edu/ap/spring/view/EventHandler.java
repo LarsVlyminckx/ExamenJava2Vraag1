@@ -38,9 +38,9 @@ public class EventHandler {
     		Question question = new Question(vraag, antwoord);
     		repository.save(question);
 
-    		System.out.println(question.toString() + " saved in repository");
-    		/*System.out.println("Find all : ") ;
-        	repository.findAll().forEach(System.out::println);*/
+    		System.out.println(question.toString());
+    		System.out.println("Find all : ") ;
+        	repository.findAll().forEach(System.out::println);
     	} catch (Exception e) {	}
     }
 }

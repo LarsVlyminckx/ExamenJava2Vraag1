@@ -23,20 +23,19 @@ public class AOPHandler {
 	 public void checkBeforeSaveUser(JoinPoint joinPoint) throws Exception {
 		 Question newQuestion = (Question)joinPoint.getArgs()[0];
 		 
-		 if (repository.findByAnswer(newQuestion.getAnswer()) != null) {
-			 Question foundAnswer = repository.findByQuestion(newQuestion.getQuestion());
-			 System.out.println("Dit antwoord is gegeven!");
-			 /*EightBall eightBall = new EightBall();
-			 String[] antwoorden= eightBall.getAnswers();
-			 int rnd = new Random().nextInt(antwoorden.length);
-			 String antwoord = antwoorden[rnd];
-			 System.out.println(foundAnswer.toString());*/
-			 throw new Exception();
-		}
+		 while (repository.findByAnswer(newQuestion.getAnswer()) != null) {
+				 //System.out.println("Dit antwoord is gegeven!");
+				 EightBall eightBall = new EightBall();
+				 String[] antwoorden= eightBall.getAnswers();
+				 int rnd = new Random().nextInt(antwoorden.length);
+				 String antwoord = antwoorden[rnd];
+				 newQuestion = new Question(newQuestion.getQuestion(), antwoord);
+				 repository.save(newQuestion);
+			}
+		 
 		 
 		 if (repository.findByQuestion(newQuestion.getQuestion()) != null) {
 			 Question foundQuestion = repository.findByQuestion(newQuestion.getQuestion());
-			 System.out.println("Deze vraag is al gesteld!");
 			 System.out.println(foundQuestion.toString());
 			 throw new Exception();
 		}
