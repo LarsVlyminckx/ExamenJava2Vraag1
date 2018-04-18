@@ -27,25 +27,20 @@ public class EventHandler {
     }
 
     public void whenButtonClicked(ActionEvent actionEvent) {
-    	
-    	Question question;
-    	
-    	EightBall eightBall = new EightBall();
-    	String[] antwoorden= eightBall.getAnswers();
-    	int rnd = new Random().nextInt(antwoorden.length);
-        String antwoord = antwoorden[rnd];
+    	try {
+    		EightBall eightBall = new EightBall();
+    		String[] antwoorden= eightBall.getAnswers();
+    		int rnd = new Random().nextInt(antwoorden.length);
+    		String antwoord = antwoorden[rnd];
         
-        String vraag = ui.getQuestion().getText();
-        System.out.println(repository.findByQuestion(vraag));
-        /*if (repository.findByQuestion(vraag) == null) {
-			
-		}*/
-        
-    	question = new Question(vraag, antwoord);
-        repository.save(question);
+    		String vraag = ui.getQuestion().getText();        
+       
+    		Question question = new Question(vraag, antwoord);
+    		repository.save(question);
 
-        //System.out.println(question.toString() + " saved in repository");
-        //System.out.println("Find all : ") ;
-        //repository.findAll().forEach(System.out::println);
+    		System.out.println(question.toString() + " saved in repository");
+    		/*System.out.println("Find all : ") ;
+        	repository.findAll().forEach(System.out::println);*/
+    	} catch (Exception e) {	}
     }
 }

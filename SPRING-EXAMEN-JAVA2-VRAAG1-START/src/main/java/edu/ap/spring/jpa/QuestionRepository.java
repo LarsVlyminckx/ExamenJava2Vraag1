@@ -8,5 +8,6 @@ public interface QuestionRepository extends CrudRepository<Question, Long> {
 	
 	Question findByQuestion(String question);
 	
+	Question findByAnswer(String answer);
 }
 
